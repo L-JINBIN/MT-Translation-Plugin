@@ -1,0 +1,20 @@
+apply plugin: 'com.android.library'
+
+android {
+    compileSdkVersion 14
+    defaultConfig { minSdkVersion 14 }
+}
+
+task packPlugin(type: Exec) {
+    commandLine "java", "-jar", "plugin-packer.jar",
+            "--src", "src/main/java",
+            "--assets", "src/main/assets",
+            "--libs", "libs",
+            "--manifest", "src/main/resources/manifest.json",
+            "--out", "build/outputs/mtp/plugin.mtp"
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation fileTree(dir: 'libs-base', include: ['*.jar'])
+}
