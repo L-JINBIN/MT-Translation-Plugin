@@ -14,6 +14,14 @@ task packPlugin(type: Exec) {
             "--out", "build/outputs/mtp/plugin.mtp"
 }
 
+// 打包插件并复制文件到手机中，adb路径需要自己修改
+task pushPlugin(type: Exec, dependsOn: "packPlugin") {
+    commandLine "/Users/linjinbin/Library/Android/sdk/platform-tools/adb",
+            "push",
+            "build/outputs/mtp/plugin.mtp",
+            "/sdcard/MT2/plugin.mtp"
+}
+
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation fileTree(dir: 'libs-base', include: ['*.jar'])
