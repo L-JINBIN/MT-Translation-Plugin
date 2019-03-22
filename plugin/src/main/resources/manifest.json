@@ -2,7 +2,7 @@
   // MT插件系统SDK版本
   // 高版本插件无法安装在低版本插件系统中
   // 目前均填1
-  pluginSdkVersion: 1,
+  pluginSdkVersion: 2,
 
   // 插件ID，插件的唯一标识，类似于packageName
   // 只能由字母、下划线和点组成

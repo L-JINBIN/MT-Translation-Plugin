@@ -7,8 +7,7 @@ public class Preference implements PluginPreference {
 
     @Override
     public void onBuild(MTPluginContext context, Builder builder) {
-        // 设置LocalString后会自动对title、summary以及List.Item的name进行转化
-        builder.setLocalString(context.getAssetLocalString("String"));
+        builder.setLocalString(context.getLocalString());
 
         // 百度
         builder.addHeader("{bt}");
