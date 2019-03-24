@@ -5,7 +5,7 @@ android {
     defaultConfig { minSdkVersion 14 }
 }
 
-task packPlugin(type: Exec) {
+task buildPlugin(type: Exec) {
     commandLine "java", "-jar", "plugin-packer.jar",
             "--src", "src/main/java",
             "--assets", "src/main/assets",
@@ -15,7 +15,7 @@ task packPlugin(type: Exec) {
 }
 
 // 打包插件并复制文件到手机中，adb路径需要自己修改
-task pushPlugin(type: Exec, dependsOn: "packPlugin") {
+task pushPlugin(type: Exec, dependsOn: "buildPlugin") {
     commandLine "/Users/linjinbin/Library/Android/sdk/platform-tools/adb",
             "push",
             "build/outputs/mtp/plugin.mtp",

@@ -17,4 +17,4 @@ MT管理器官方翻译插件源码
 
 ## 一键打包
 
-在 Android Studio 上方选择 PackPlugin 并点击运行，或者在项目根目录下执行 ./gradlew plugin:packPlugin，即可自动打包文件并保存到 plugin/build/outputs/mtp/plugin.mtp
+在 Android Studio 上方选择 BuildPlugin 并点击运行，或者在项目根目录下执行 ./gradlew plugin:buildPlugin，即可自动打包文件并保存到 plugin/build/outputs/mtp/plugin.mtp
