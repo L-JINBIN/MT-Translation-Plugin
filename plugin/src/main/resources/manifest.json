@@ -1,11 +1,11 @@
 {
   // MT插件系统SDK版本
   // 高版本插件无法安装在低版本插件系统中
-  // 目前均填1
+  // 目前均填2
   pluginSdkVersion: 2,
 
   // 插件ID，插件的唯一标识，类似于packageName
-  // 只能由字母、下划线和点组成
+  // 只能由字母、数字、下划线和点组成
   pluginID: "bin.mt.plugin.translaiton",
 
   // 插件版本号，低版本插件无法覆盖安装高版本插件
