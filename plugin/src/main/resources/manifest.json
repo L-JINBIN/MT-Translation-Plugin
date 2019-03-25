@@ -6,7 +6,7 @@
 
   // 插件ID，插件的唯一标识，类似于packageName
   // 只能由字母、数字、下划线和点组成
-  pluginID: "bin.mt.plugin.translaiton",
+  pluginID: "bin.mt.plugin.translation",
 
   // 插件版本号，低版本插件无法覆盖安装高版本插件
   versionCode: 6,
