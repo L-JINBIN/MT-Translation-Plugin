@@ -11,6 +11,7 @@ task buildPlugin(type: Exec) {
             "--assets", "src/main/assets",
             "--libs", "libs",
             "--manifest", "src/main/resources/manifest.json",
+            "--icon", "src/main/resources/icon.png",
             "--out", "build/outputs/mtp/plugin.mtp"
 }
 
