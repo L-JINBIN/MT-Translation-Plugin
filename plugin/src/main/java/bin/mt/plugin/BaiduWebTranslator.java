@@ -52,12 +52,37 @@ public class BaiduWebTranslator {
     }
 
     public static String translate(String query, String from, String to) throws IOException {
+        if (from.equalsIgnoreCase("auto"))
+            from = langDetect(query);
         String result = translateImpl(query, from, to);
         if (result == null) // 可能身份过期
             result = translateImpl(query, from, to);
         if (result == null) // 翻译失败
             throw new IOException("Translation failed");
         return result;
+    }
+
+    private static String langDetect(String query) throws IOException {
+        FormBody formBody = new FormBody.Builder(Charset.defaultCharset())
+                .add("query", query)
+                .build();
+        Request request = new Request.Builder()
+                .url("https://fanyi.baidu.com/langdetect")
+                .post(formBody)
+                .build();
+        Response response = HTTP_CLIENT.newCall(request).execute();
+        if (response.isSuccessful()) {
+            try {
+                //noinspection ConstantConditions
+                String string = response.body().string();
+                JSONObject json = new JSONObject(string);
+                return json.getString("lan");
+            } catch (Exception e) {
+                return "auto";
+            }
+        } else {
+            return "auto";
+        }
     }
 
     private static String translateImpl(String text, String from, String to) throws IOException {
