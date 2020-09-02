@@ -9,10 +9,10 @@
   pluginID: "bin.mt.plugin.translation",
 
   // 插件版本号，低版本插件无法覆盖安装高版本插件
-  versionCode: 8,
+  versionCode: 9,
 
   // 插件版本名称
-  versionName: "v1.3",
+  versionName: "v1.4",
 
   // 插件名称
   name: "{plugin_name}",

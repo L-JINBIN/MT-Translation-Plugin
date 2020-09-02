@@ -23,17 +23,6 @@ public class Preference implements PluginPreference {
         builder.addText("{reg_url}")
                 .summary("{bt_reg_url_summary}")
                 .url("https://api.fanyi.baidu.com");
-
-        // Yandex
-        builder.addHeader("{yt}");
-
-        builder.addInput("API Key", Constant.YANDEX_KEY_PREFERENCE_KEY)
-                .defaultValue(Constant.YANDEX_KEY_DEFAULT)
-                .summary("{yt_key_summary}");
-
-        builder.addText("{reg_url}")
-                .summary("{yt_reg_url_summary}")
-                .url("https://tech.yandex.com/translate");
     }
 
 }

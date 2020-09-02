@@ -8,13 +8,11 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
-import java.nio.charset.Charset;
 import java.util.Arrays;
 import java.util.List;
 
 import bin.mt.plugin.api.LocalString;
-import bin.mt.plugin.api.translation.BaseTranslationEngine;
-import okhttp3.FormBody;
+import bin.mt.plugin.api.translation.BaseTranslationEngine;;
 import okhttp3.Request;
 import okhttp3.Response;
 
@@ -77,14 +75,9 @@ public class YandexTranslationEngine extends BaseTranslationEngine {
         return super.getLanguageDisplayName(language);
     }
 
-    private String key;
-
     @Override
     public void onStart() {
         SharedPreferences preferences = getContext().getPreferences();
-        key = preferences.getString(Constant.YANDEX_KEY_PREFERENCE_KEY, Constant.YANDEX_KEY_DEFAULT);
-        if (key.isEmpty())
-            key = Constant.YANDEX_KEY_DEFAULT;
     }
 
     @NonNull
@@ -96,17 +89,12 @@ public class YandexTranslationEngine extends BaseTranslationEngine {
         else
             lang = sourceLanguage + '-' + targetLanguage;
 
-        String url = "https://translate.yandex.net/api/v1.5/tr.json/translate"
-                + "?key=" + key
-                + "&lang=" + lang;
-
-        FormBody formBody = new FormBody.Builder(Charset.defaultCharset())
-                .add("text", text)
-                .build();
+        String url = "https://translate.yandex.net/api/v1/tr.json/translate"
+                + "?srv=android&lang=" + lang
+                + "&text=" + text;
 
         Request request = new Request.Builder()
                 .url(url)
-                .post(formBody)
                 .build();
 
         Response response = GoogleWebTranslator.HTTP_CLIENT.newCall(request).execute();
