@@ -1,0 +1,16 @@
+Plugin_name: Plugin dịch
+Plugin_description: Plugin dịch chính thức của MT.  Bao gồm Google, Baidu và Yandex dịch.
+
+Gtw: Google dịch (Web)
+Btw: Trình dịch Baidu (Web)
+Bt: Trình dịch Baidu
+Yt: Trình dịch Yandex
+
+Reg_url: URL đăng ký
+
+Bt_appid_summary: ID APP nền tảng mở dịch Baidu
+Bt_key_summary: Nền tảng mở bản dịch của Baidu SecurityKey
+Bt_reg_url_summary: ID và Khóa APP được tích hợp sẵn có thể vượt quá hạn ngạch miễn phí.  Bạn nên tự áp dụng: https://api.fanyi.baidu.com
+
+Yt_key_summary: Khóa API dịch Yandex
+Yt_reg_url_summary: Khóa API tích hợp có thể vượt quá hạn ngạch miễn phí.  Bạn nên tự đăng ký: https://tech.yandex.com/translate
