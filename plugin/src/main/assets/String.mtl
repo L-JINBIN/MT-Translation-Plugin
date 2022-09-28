@@ -11,6 +11,4 @@ reg_url: Registration URL
 bt_appid_summary: Baidu translation open platform APP ID
 bt_key_summary: Baidu translation open platform SecurityKey
 bt_reg_url_summary: The built-in APP ID and Key may exceed the free quota. It is recommended to apply for it yourself: https://api.fanyi.baidu.com
-
-yt_key_summary: Yandex translate API key
-yt_reg_url_summary: The built-in API key may exceed the free quota. It is recommended to apply for it yourself: https://tech.yandex.com/translate
+bt_please_recharge: The free translation quota has been used up, please change the APP ID and SecurityKey of Baidu Translation Open Platform in the plugin settings!

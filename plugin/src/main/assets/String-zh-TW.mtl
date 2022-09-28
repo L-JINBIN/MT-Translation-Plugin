@@ -11,6 +11,4 @@ reg_url: 申請地址
 bt_appid_summary: 百度翻譯開放平臺的 APP ID
 bt_key_summary: 百度翻譯開放平臺的密鑰
 bt_reg_url_summary: 內置的 APP ID 和 Key 可能會超出免費額度，建議自己申請：https://api.fanyi.baidu.com
-
-yt_key_summary: Yandex 開放平臺的 API Key
-yt_reg_url_summary: 內置的 API Key 可能會超出免費額度，建議自己申請：https://tech.yandex.com/translate
+bt_please_recharge: 免費翻譯額度已用完，請在插件設置中更換百度翻譯開放平臺的 APP ID 和密鑰！

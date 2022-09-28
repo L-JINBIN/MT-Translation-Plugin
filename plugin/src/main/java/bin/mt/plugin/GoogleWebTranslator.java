@@ -1,5 +1,8 @@
 package bin.mt.plugin;
 
+import static bin.mt.plugin.Constant.HTTP_CLIENT;
+import static bin.mt.plugin.Constant.UA;
+
 import android.content.SharedPreferences;
 
 import org.json.JSONArray;
@@ -8,11 +11,9 @@ import org.json.JSONTokener;
 
 import java.io.IOException;
 import java.nio.charset.Charset;
-import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
@@ -21,14 +22,8 @@ import okhttp3.Response;
  *
  * @author Bin
  */
+@Deprecated
 public class GoogleWebTranslator {
-    static final OkHttpClient HTTP_CLIENT = new OkHttpClient.Builder()
-            .connectTimeout(6, TimeUnit.SECONDS)
-            .readTimeout(10, TimeUnit.SECONDS)
-            .writeTimeout(10, TimeUnit.SECONDS)
-            .build();
-    static final String UA = "Mozilla/5.0 (Linux; Android 6.0;)";
-
     private static long[] tkk;
 
     public static void readState(SharedPreferences preferences) {

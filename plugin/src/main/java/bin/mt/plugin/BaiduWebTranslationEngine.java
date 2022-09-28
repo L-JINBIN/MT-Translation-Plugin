@@ -46,16 +46,16 @@ public class BaiduWebTranslationEngine extends BaseTranslationEngine {
        cht     繁体中文
        vie     越南语
      */
-    private List<String> sourceLanguages = Arrays.asList("auto",
+    private final List<String> sourceLanguages = Arrays.asList("auto",
             "zh", "en", "jp", "kor", "fra", "spa", "th", "ara", "ru", "pt", "de", "it", "el", "nl",
             "pl", "bul", "est", "dan", "fin", "cs", "rom", "slo", "swe", "hu", "cht", "vie");
 
-    private List<String> targetLanguages = Arrays.asList(
+    private final List<String> targetLanguages = Arrays.asList(
             "zh", "en", "jp", "kor", "fra", "spa", "th", "ara", "ru", "pt", "de", "it", "el", "nl",
             "pl", "bul", "est", "dan", "fin", "cs", "rom", "slo", "swe", "hu", "cht", "vie");
 
     // 顺序和sourceLanguages对应
-    private List<String> ios_639_1_LanguageCodes = Arrays.asList("auto",
+    private final List<String> ios_639_1_LanguageCodes = Arrays.asList("auto",
             "zh", "en", "ja", "ko", "fr", "es", "th", "ar", "ru", "pt", "de", "it", "el", "nl",
             "pl", "bg", "et", "da", "fi", "cs", "ro", "sl", "sv", "hu", "zh-TW", "vi");
 

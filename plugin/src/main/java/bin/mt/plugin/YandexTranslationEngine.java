@@ -1,6 +1,7 @@
 package bin.mt.plugin;
 
-import android.content.SharedPreferences;
+import static bin.mt.plugin.Constant.UA;
+
 import android.support.annotation.NonNull;
 
 import org.json.JSONArray;
@@ -8,11 +9,14 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.nio.charset.Charset;
 import java.util.Arrays;
 import java.util.List;
+import java.util.UUID;
 
 import bin.mt.plugin.api.LocalString;
-import bin.mt.plugin.api.translation.BaseTranslationEngine;;
+import bin.mt.plugin.api.translation.BaseTranslationEngine;
+import okhttp3.FormBody;
 import okhttp3.Request;
 import okhttp3.Response;
 
@@ -22,7 +26,7 @@ import okhttp3.Response;
  * @author Bin
  */
 public class YandexTranslationEngine extends BaseTranslationEngine {
-    private List<String> sourceLanguages = Arrays.asList("auto",
+    private final List<String> sourceLanguages = Arrays.asList("auto",
             "zh", "en", "af", "am", "ar", "az", "be", "bg", "bn", "bs", "ca", "ceb", "cs", "cy",
             "da", "de", "el", "eo", "es", "et", "eu", "fa", "fi", "fr", "ga", "gd", "gl", "gu",
             "he", "hi", "hr", "ht", "hu", "hy", "id", "is", "it", "ja", "jv", "ka", "kk", "km",
@@ -31,7 +35,7 @@ public class YandexTranslationEngine extends BaseTranslationEngine {
             "sq", "sr", "su", "sv", "sw", "ta", "te", "tg", "th", "tl", "tr", "tt", "uk", "ur",
             "uz", "vi", "xh", "yi");
 
-    private List<String> targetLanguages = Arrays.asList(
+    private final List<String> targetLanguages = Arrays.asList(
             "zh", "en", "af", "am", "ar", "az", "be", "bg", "bn", "bs", "ca", "ceb", "cs", "cy",
             "da", "de", "el", "eo", "es", "et", "eu", "fa", "fi", "fr", "ga", "gd", "gl", "gu",
             "he", "hi", "hr", "ht", "hu", "hy", "id", "is", "it", "ja", "jv", "ka", "kk", "km",
@@ -75,11 +79,6 @@ public class YandexTranslationEngine extends BaseTranslationEngine {
         return super.getLanguageDisplayName(language);
     }
 
-    @Override
-    public void onStart() {
-        SharedPreferences preferences = getContext().getPreferences();
-    }
-
     @NonNull
     @Override
     public String translate(String text, String sourceLanguage, String targetLanguage) throws IOException {
@@ -89,15 +88,20 @@ public class YandexTranslationEngine extends BaseTranslationEngine {
         else
             lang = sourceLanguage + '-' + targetLanguage;
 
-        String url = "https://translate.yandex.net/api/v1/tr.json/translate"
-                + "?srv=android&lang=" + lang
-                + "&text=" + text;
-
-        Request request = new Request.Builder()
-                .url(url)
+        FormBody formBody = new FormBody.Builder(Charset.defaultCharset())
+                .add("srv", "android")
+                .add("ucid", UUID.randomUUID().toString().replace("-", ""))
+                .add("lang", lang)
+                .add("text", text)
                 .build();
 
-        Response response = GoogleWebTranslator.HTTP_CLIENT.newCall(request).execute();
+        Request request = new Request.Builder()
+                .url("https://translate.yandex.net/api/v1/tr.json/translate")
+                .addHeader("user-agent", UA)
+                .post(formBody)
+                .build();
+
+        Response response = Constant.HTTP_CLIENT.newCall(request).execute();
         if (response.isSuccessful()) {
             try {
                 //noinspection ConstantConditions

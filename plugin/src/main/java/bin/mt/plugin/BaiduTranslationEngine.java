@@ -64,7 +64,7 @@ public class BaiduTranslationEngine extends BaiduWebTranslationEngine {
         Request request = new Request.Builder()
                 .url(url)
                 .build();
-        Response response = GoogleWebTranslator.HTTP_CLIENT.newCall(request).execute();
+        Response response = Constant.HTTP_CLIENT.newCall(request).execute();
         if (response.isSuccessful()) {
             try {
                 //noinspection ConstantConditions
@@ -77,9 +77,12 @@ public class BaiduTranslationEngine extends BaiduWebTranslationEngine {
         }
     }
 
-    private static String getResult(String string) throws JSONException, IOException {
+    private String getResult(String string) throws JSONException, IOException {
         JSONObject json = new JSONObject(string);
         if (json.has("error_code")) {
+            if (json.getString("error_code").equals("54004")) {
+                throw new IOException(this.string.get("bt_please_recharge"));
+            }
             throw new IOException("Error " + json.getString("error_code")
                     + ": " + json.getString("error_msg"));
         }

@@ -15,7 +15,7 @@ import bin.mt.plugin.api.translation.BaseTranslationEngine;
  * @author Bin
  */
 public class GoogleWebTranslationEngine extends BaseTranslationEngine {
-    private List<String> sourceLanguages = Arrays.asList("auto",
+    private final List<String> sourceLanguages = Arrays.asList("auto",
             "zh", "zh-TW", "en", "af", "am", "ar", "az", "be", "bg", "bn", "bs", "ca",
             "ceb", "co", "cs", "cy", "da", "de", "el", "eo", "es", "et", "eu", "fa",
             "fi", "fr", "fy", "ga", "gd", "gl", "gu", "ha", "haw", "hi", "hmn", "hr",
@@ -26,7 +26,7 @@ public class GoogleWebTranslationEngine extends BaseTranslationEngine {
             "sq", "sr", "st", "su", "sv", "sw", "ta", "te", "tg", "th", "tl", "tr",
             "uk", "ur", "uz", "vi", "xh", "yi", "yo", "zu");
 
-    private List<String> targetLanguages = Arrays.asList(
+    private final List<String> targetLanguages = Arrays.asList(
             "zh", "zh-TW", "en", "af", "am", "ar", "az", "be", "bg", "bn", "bs", "ca",
             "ceb", "co", "cs", "cy", "da", "de", "el", "eo", "es", "et", "eu", "fa",
             "fi", "fr", "fy", "ga", "gd", "gl", "gu", "ha", "haw", "hi", "hmn", "hr",
@@ -42,7 +42,6 @@ public class GoogleWebTranslationEngine extends BaseTranslationEngine {
     @Override
     protected void init() {
         string = getContext().getAssetLocalString("String");
-        GoogleWebTranslator.readState(getContext().getPreferences());
     }
 
     @NonNull
@@ -66,11 +65,10 @@ public class GoogleWebTranslationEngine extends BaseTranslationEngine {
     @NonNull
     @Override
     public String translate(String text, String sourceLanguage, String targetLanguage) throws IOException {
-        return GoogleWebTranslator.translate(text, sourceLanguage, targetLanguage);
+        return GoogleWebTranslator2.translate(text, sourceLanguage, targetLanguage);
     }
 
     @Override
     public void onFinish() {
-        GoogleWebTranslator.saveState(getContext().getPreferences());
     }
 }

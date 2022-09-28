@@ -1,5 +1,8 @@
 package bin.mt.plugin;
 
+import static bin.mt.plugin.Constant.HTTP_CLIENT;
+import static bin.mt.plugin.Constant.UA;
+
 import android.content.SharedPreferences;
 
 import org.json.JSONArray;
@@ -15,7 +18,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import okhttp3.FormBody;
-import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
@@ -25,9 +27,6 @@ import okhttp3.Response;
  * @author Bin
  */
 public class BaiduWebTranslator {
-    private static final OkHttpClient HTTP_CLIENT = GoogleWebTranslator.HTTP_CLIENT;
-    private static final String UA = GoogleWebTranslator.UA;
-
     private static long[] gtk;
     private static String token;
     private static String cookie;
