@@ -1,6 +1,5 @@
 package bin.mt.plugin;
 
-import static bin.mt.plugin.Constant.HTTP_CLIENT;
 import static bin.mt.plugin.Constant.UA;
 
 import android.content.SharedPreferences;
@@ -10,16 +9,11 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
-import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-import okhttp3.FormBody;
-import okhttp3.Request;
-import okhttp3.Response;
 
 /**
  * 百度翻译Web版
@@ -27,7 +21,7 @@ import okhttp3.Response;
  * @author Bin
  */
 public class BaiduWebTranslator {
-    private static long[] gtk;
+    private static volatile long[] gtk;
     private static String token;
     private static String cookie;
 
@@ -53,82 +47,64 @@ public class BaiduWebTranslator {
     public static String translate(String query, String from, String to) throws IOException {
         if (from.equalsIgnoreCase("auto"))
             from = langDetect(query);
-        String result = translateImpl(query, from, to);
+        String result = translateImpl(query, from, to, false);
         if (result == null) // 可能身份过期
-            result = translateImpl(query, from, to);
+            result = translateImpl(query, from, to, true);
         if (result == null) // 翻译失败
             throw new IOException("Translation failed");
         return result;
     }
 
-    private static String langDetect(String query) throws IOException {
-        FormBody formBody = new FormBody.Builder(Charset.defaultCharset())
-                .add("query", query)
-                .build();
-        Request request = new Request.Builder()
-                .url("https://fanyi.baidu.com/langdetect")
-                .post(formBody)
-                .build();
-        Response response = HTTP_CLIENT.newCall(request).execute();
-        if (response.isSuccessful()) {
-            try {
-                //noinspection ConstantConditions
-                String string = response.body().string();
-                JSONObject json = new JSONObject(string);
-                return json.getString("lan");
-            } catch (Exception e) {
-                return "auto";
-            }
-        } else {
+    private static String langDetect(String query) {
+        try {
+            return HttpUtils.post("https://fanyi.baidu.com/langdetect")
+                    .header("User-Agent", UA)
+                    .header("Cookie", cookie)
+                    .formData("query", query)
+                    .executeToJson()
+                    .getString("lan");
+        } catch (Exception e) {
             return "auto";
         }
     }
 
-    private static String translateImpl(String text, String from, String to) throws IOException {
+    private static String translateImpl(String text, String from, String to, boolean throwErrno) throws IOException {
         tryInitSync();
-        FormBody formBody = new FormBody.Builder(Charset.defaultCharset())
-                .add("query", text)
-                .add("from", from)
-                .add("to", to)
-                .add("token", token)
-                .add("sign", a(text))
-                .build();
-
-        Request request = new Request.Builder()
-                .url("https://fanyi.baidu.com/basetrans")
+        // 这里使用OKHTTP会返回1022错误，原因不清楚
+        JSONObject json = HttpUtils.post("https://fanyi.baidu.com/basetrans")
                 .header("User-Agent", UA)
                 .header("Cookie", cookie)
-                .post(formBody)
-                .build();
-
-        Response response = HTTP_CLIENT.newCall(request).execute();
-        if (response.isSuccessful()) {
-            try {
-                //noinspection ConstantConditions
-                return getResult(response.body().string());
-            } catch (Exception e) {
-                throw new IOException(e);
-            }
-        } else {
-            throw new IOException("HTTP response code: " + response.code());
-        }
+                .formData("query", text)
+                .formData("from", from)
+                .formData("to", to)
+                .formData("token", token)
+                .formData("sign", sign(text))
+                .executeToJson();
+        return getResult(json, throwErrno);
     }
 
-    private static String getResult(String string) throws JSONException {
-        JSONObject json = new JSONObject(string);
-        if (json.getInt("errno") != 0) {
-            gtk = null;
-            return null;
+    private static String getResult(JSONObject json, boolean throwErrno) throws IOException {
+        try {
+            if (json.getInt("errno") != 0) {
+                gtk = null;
+                if (throwErrno) {
+                    throw new IOException(json.getString("errmsg"));
+                } else {
+                    return null;
+                }
+            }
+            JSONArray array = json.getJSONArray("trans");
+            StringBuilder sb = new StringBuilder();
+            int length = array.length();
+            for (int i = 0; i < length; i++) {
+                if (i != 0)
+                    sb.append('\n');
+                sb.append(array.getJSONObject(i).getString("dst"));
+            }
+            return sb.toString();
+        } catch (JSONException e) {
+            throw new IOException(e);
         }
-        JSONArray array = json.getJSONArray("trans");
-        StringBuilder sb = new StringBuilder();
-        int length = array.length();
-        for (int i = 0; i < length; i++) {
-            if (i != 0)
-                sb.append('\n');
-            sb.append(array.getJSONObject(i).getString("dst"));
-        }
-        return sb.toString();
     }
 
     private static void tryInitSync() throws IOException {
@@ -143,24 +119,17 @@ public class BaiduWebTranslator {
 
     private static void init() throws IOException {
         cookie = "BAIDUID=" + generateBaiduId() + ";";
-        Request request = new Request.Builder()
-                .url("https://fanyi.baidu.com/translate")
+        String src = HttpUtils.get("https://fanyi.baidu.com/translate")
+                .header("User-Agent", UA)
                 .header("Cookie", cookie)
-                .build();
-        Response response = HTTP_CLIENT.newCall(request).execute();
-        if (response.isSuccessful()) {
-            //noinspection ConstantConditions
-            String src = response.body().string();
-            token = matchToken(src);
-            if (token == null) {
-                throw new IOException("Parse token failed");
-            }
-            gtk = matchGTK(src);
-            if (gtk == null) {
-                throw new IOException("Parse gtk failed");
-            }
-        } else {
-            throw new IOException("HTTP response code: " + response.code());
+                .execute();
+        token = matchToken(src);
+        if (token == null) {
+            throw new IOException("Parse token failed");
+        }
+        gtk = matchGTK(src);
+        if (gtk == null) {
+            throw new IOException("Parse gtk failed");
         }
     }
 
@@ -193,57 +162,38 @@ public class BaiduWebTranslator {
         return null;
     }
 
-    private static String a(String r) {
-        List<String> t = match(r, "[\\uD800\\uDC00-\\uDBFF\\uDFFF]");
-        if (t == null) {
-            int a = r.length();
-            if (a > 30)
-                r = "" + r.substring(0, 10)
-                        + r.substring((a / 2 - 5), (a / 2 + 5))
-                        + r.substring(a - 10);
-        } else {
-            String[] C = r.split("[\\uD800\\uDC00-\\uDBFF\\uDFFF]");
-            int h = 0;
-            int f = C.length;
-            List<String> u = new ArrayList<>();
-            while (f > h) {
-                for (char c : C[h].toCharArray()) {
-                    u.add(String.valueOf(c));
+    private static final Pattern PATTERN1 = Pattern.compile("[\uD800\uDC00-\uDBFF\uDFFF]");
+    private static final Pattern PATTERN2 = Pattern.compile("[\uD800\uDC00-\uDBFF\uDFFF]|.");
+
+    private static String sign(String text) {
+        Matcher matcher = PATTERN1.matcher(text);
+        if (matcher.find()) {
+            if (matcher.replaceAll(".").length() > 30) {
+                matcher = PATTERN2.matcher(text);
+                List<String> list = new ArrayList<>();
+                while (matcher.find()) {
+                    list.add(matcher.group());
                 }
-                if (h != f - 1) {
-                    u.add(t.get(h));
-                }
-                h++;
+                StringBuilder sb = new StringBuilder();
+                int size = list.size();
+                join(sb, list.subList(0, 10));
+                join(sb, list.subList((size / 2) - 5, (size / 2) + 5));
+                join(sb, list.subList(size - 10, size));
+                text = sb.toString();
             }
-            int g = u.size();
-            if (g > 30) {
-                r = join(u.subList(0, 10)) +
-                        join(u.subList(g / 2 - 5, g / 2 + 5)) +
-                        join(u.subList(g - 10, g));
-            }
+        } else if (text.length() > 30) {
+            int length = text.length();
+            text = text.substring(0, 10)
+                    + text.substring((length / 2 - 5), (length / 2 + 5))
+                    + text.substring(length - 10);
         }
-        return SignUtil.signWeb(r, gtk[0], gtk[1]);
+        return SignUtil.signWeb(text, gtk[0], gtk[1]);
     }
 
-
-    private static String join(List<String> list) {
-        StringBuilder sb = new StringBuilder();
+    private static void join(StringBuilder sb, List<String> list) {
         for (String s : list) {
             sb.append(s);
         }
-        return sb.toString();
-    }
-
-    @SuppressWarnings("SameParameterValue")
-    private static List<String> match(String str, String regex) {
-        ArrayList<String> list = new ArrayList<>();
-        Matcher matcher = Pattern.compile(regex).matcher(str);
-        while (matcher.find()) {
-            list.add(matcher.group());
-        }
-        if (list.isEmpty())
-            return null;
-        return list;
     }
 
 }

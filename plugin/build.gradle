@@ -24,7 +24,7 @@ task pushPlugin(type: Exec, dependsOn: "buildPlugin") {
     commandLine "/Users/linjinbin/Library/Android/sdk/platform-tools/adb",
             "push",
             "build/outputs/mtp/plugin.mtp",
-            "/sdcard/MT2/plugin.mtp"
+            "/sdcard/MT2/plugin/output.mtp"
 }
 
 dependencies {
