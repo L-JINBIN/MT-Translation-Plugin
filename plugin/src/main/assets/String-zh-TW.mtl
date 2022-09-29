@@ -1,5 +1,5 @@
 plugin_name: 翻譯插件
-plugin_description: MT官方翻譯插件，包含谷歌翻譯、百度翻譯、Yandex翻譯。
+plugin_description: MT官方翻譯插件，包含百度翻譯、Yandex翻譯。
 
 gtw: 谷歌翻譯 (Web)
 btw: 百度翻譯 (Web)
