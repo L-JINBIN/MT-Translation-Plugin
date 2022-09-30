@@ -7,9 +7,9 @@
   // 只能由字母、数字、下划线和点组成
   pluginID: "bin.mt.plugin.translation",
   // 插件版本号，低版本插件无法覆盖安装高版本插件
-  versionCode: 12,
+  versionCode: 13,
   // 插件版本名称
-  versionName: "v1.7",
+  versionName: "v1.8",
   // 插件名称
   name: "{plugin_name}",
   // 插件描述
@@ -17,6 +17,7 @@
   // 对外接口，接口类型会自动判断
   // 目前仅有翻译接口
   interfaces: [
+    "bin.mt.plugin.GoogleWebTranslationEngine",
     "bin.mt.plugin.BaiduWebTranslationEngine",
     "bin.mt.plugin.BaiduTranslationEngine",
     "bin.mt.plugin.YandexTranslationEngine"

@@ -1,5 +1,5 @@
 plugin_name: Переводчик
-plugin_description: Официальный плагин перевода MT. Включает в себя переводчики: Baidu и Яндекс.
+plugin_description: Официальный плагин перевода MT. Включает в себя переводчики: Google, Baidu и Яндекс.
 
 gtw: Google (Web)
 btw: Baidu (Web)

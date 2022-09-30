@@ -1,5 +1,5 @@
 plugin_name: Translation Plugin
-plugin_description: MT official translation plugin. Including Baidu and Yandex translator.
+plugin_description: MT official translation plugin. Including Google, Baidu and Yandex translator.
 
 gtw: Google Translator (Web)
 btw: Baidu Translator (Web)
