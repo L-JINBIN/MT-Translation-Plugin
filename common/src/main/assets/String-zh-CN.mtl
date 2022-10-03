@@ -1,0 +1,14 @@
+plugin_name: 翻译插件
+plugin_description: MT官方翻译插件，包含百度翻译、谷歌翻译（需要翻墙才可使用）、Yandex翻译。
+
+btw: 百度翻译 (Web)
+bt: 百度翻译 (API)
+gtw: 谷歌翻译 (翻墙)
+yt: Yandex 翻译
+
+reg_url: 申请地址
+
+bt_appid_summary: 百度翻译开放平台的 APP ID
+bt_key_summary: 百度翻译开放平台的密钥
+bt_reg_url_summary: 内置的 APP ID 和 Key 可能会超出免费额度，建议自己申请：https://api.fanyi.baidu.com
+bt_please_recharge: 免费翻译额度已用完，请在插件设置中更换百度翻译开放平台的 APP ID 和密钥！

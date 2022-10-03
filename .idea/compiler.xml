@@ -1,6 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="CompilerConfiguration">
-    <bytecodeTargetLevel target="11" />
+    <bytecodeTargetLevel target="1.8">
+      <module name="MT-Translation-Plugin.common" target="11" />
+      <module name="MT-Translation-Plugin.translator-baidu" target="11" />
+      <module name="MT-Translation-Plugin.translator-baidu-api" target="11" />
+      <module name="MT-Translation-Plugin.translator-baidu-web" target="11" />
+      <module name="MT-Translation-Plugin.translator-google" target="11" />
+      <module name="MT-Translation-Plugin.translator-google-web" target="11" />
+      <module name="MT-Translation-Plugin.translator-yandex" target="11" />
+      <module name="MT-Translation-Plugin.translator-youdao" target="11" />
+    </bytecodeTargetLevel>
   </component>
 </project>

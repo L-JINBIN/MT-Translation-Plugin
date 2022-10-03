@@ -12,7 +12,13 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
-            <option value="$PROJECT_DIR$/plugin" />
+            <option value="$PROJECT_DIR$/common" />
+            <option value="$PROJECT_DIR$/packer" />
+            <option value="$PROJECT_DIR$/translator-baidu" />
+            <option value="$PROJECT_DIR$/translator-baidu-api" />
+            <option value="$PROJECT_DIR$/translator-google" />
+            <option value="$PROJECT_DIR$/translator-yandex" />
+            <option value="$PROJECT_DIR$/translator-youdao" />
           </set>
         </option>
       </GradleProjectSettings>

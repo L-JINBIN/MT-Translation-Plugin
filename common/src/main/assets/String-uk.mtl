@@ -1,0 +1,13 @@
+plugin_name: Перекладач
+plugin_description: Офіційний плагін перекладу MT. Включає в себе перекладачі: Google, Baidu і Яндекс.
+
+btw: Baidu (Web)
+bt: Baidu (API)
+gtw: Google (Web)
+yt: Яндекс
+
+reg_url: Посилання для реєстрації
+
+bt_appid_summary: Ідентифікатор програми для доступу до перекладача Baidu
+bt_key_summary: Ключ для доступу до перекладача Baidu
+bt_reg_url_summary: Кількість безкоштовних перекладів обмежена, рекомендується зареєструватися і користуватися своїми даними: https://api.fanyi.baidu.com

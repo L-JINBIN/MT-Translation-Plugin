@@ -1,0 +1,9 @@
+plugin_name: 百度翻译 (API)
+plugin_description: 使用百度翻译开放平台的 API 接口，需要自己申请 APP ID 和密钥！
+
+reg_url: 申请地址
+reg_url_summary: 内置的 APP ID 和 Key 可能会超出免费额度，建议自己申请：https://api.fanyi.baidu.com
+
+bt_appid_summary: 百度翻译开放平台的 APP ID
+bt_key_summary: 百度翻译开放平台的密钥
+bt_please_recharge: 翻译额度已用完，请在插件设置中更换百度翻译开放平台的 APP ID 和密钥！
