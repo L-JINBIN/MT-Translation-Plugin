@@ -60,6 +60,7 @@ public class PluginPacker {
         System.out.println(">> " + moduleName);
         File srcDir = new File(rootDir, moduleName + "/src/main/java");
         File commonSrcDir = new File(rootDir, "common/src/main/java");
+        File gradleFile = new File(rootDir, moduleName + "/build.gradle");
         File assetsDir = new File(rootDir, moduleName + "/src/main/assets");
         File manifestFile = new File(rootDir, moduleName + "/src/main/resources/manifest.json");
         File iconFile1 = new File(moduleName + "/src/main/resources/icon.png");
@@ -70,13 +71,17 @@ public class PluginPacker {
         //noinspection ResultOfMethodCallIgnored
         outFile.getParentFile().mkdirs();
 
+        String gradleText = new String(Files.readAllBytes(gradleFile.toPath()));
+
         try (ZipOutputStream zos = new ZipOutputStream(new FileOutputStream(outFile))) {
             zos.setLevel(Deflater.BEST_COMPRESSION);
             zos.setMethod(ZipOutputStream.DEFLATED);
             addDirectory(zos, srcDir, "src/", true);
-            addDirectory(zos, commonSrcDir, "src/", true);
+            if (gradleText.contains("implementation project(':common')")) {
+                addDirectory(zos, commonSrcDir, "src/", true);
+            }
             addDirectory(zos, assetsDir, "assets/", false);
-            if (libsDir.isDirectory()) {
+            if (gradleText.contains("implementation fileTree(dir: '../libs', include: ['*.jar'])") && libsDir.isDirectory()) {
                 File[] files = libsDir.listFiles((pathname) -> {
                     if (!pathname.isFile()) {
                         return false;

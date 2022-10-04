@@ -141,7 +141,6 @@ public class BaiduTranslationEngine extends BaseTranslationEngine {
         return sb.toString();
     }
 
-
     public static String getRandomText(int length) {
         Random random = new Random();
         StringBuilder sb = new StringBuilder(length);
@@ -151,26 +150,23 @@ public class BaiduTranslationEngine extends BaseTranslationEngine {
         return sb.toString();
     }
 
-    private static final char[] hexDigits = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'};
-
     private static String toHex(byte[] digest) {
+        String hex = "0123456789abcdef";
         char[] str = new char[digest.length * 2];
         int k = 0;
         for (byte b : digest) {
-            str[k++] = hexDigits[b >>> 4 & 0xf];
-            str[k++] = hexDigits[b & 0xf];
+            str[k++] = hex.charAt(b >>> 4 & 0xf);
+            str[k++] = hex.charAt(b & 0xf);
         }
         return new String(str);
     }
 
     private static String md5(byte[] data) {
         try {
-            MessageDigest digest = MessageDigest.getInstance("MD5");
-            return toHex(digest.digest(data));
+            return toHex(MessageDigest.getInstance("MD5").digest(data));
         } catch (NoSuchAlgorithmException e) {
             throw new RuntimeException(e);
         }
     }
-
 
 }

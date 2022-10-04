@@ -6,6 +6,7 @@
       <module name="MT-Translation-Plugin.translator-baidu" target="11" />
       <module name="MT-Translation-Plugin.translator-baidu-api" target="11" />
       <module name="MT-Translation-Plugin.translator-baidu-web" target="11" />
+      <module name="MT-Translation-Plugin.translator-fanjian" target="11" />
       <module name="MT-Translation-Plugin.translator-google" target="11" />
       <module name="MT-Translation-Plugin.translator-google-web" target="11" />
       <module name="MT-Translation-Plugin.translator-yandex" target="11" />
