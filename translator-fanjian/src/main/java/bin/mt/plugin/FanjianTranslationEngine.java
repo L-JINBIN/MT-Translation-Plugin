@@ -23,8 +23,8 @@ public class FanjianTranslationEngine extends BaseTranslationEngine {
 
     public FanjianTranslationEngine() {
         super(new ConfigurationBuilder()
-                .setAutoRepairFormatControlError(true)
                 .setTargetLanguageMutable(true)
+                .setDisableAutoHideLanguage(true)
                 .build()
         );
     }
