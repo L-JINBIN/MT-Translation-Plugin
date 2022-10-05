@@ -16,6 +16,7 @@
             <option value="$PROJECT_DIR$/packer" />
             <option value="$PROJECT_DIR$/translator-baidu" />
             <option value="$PROJECT_DIR$/translator-baidu-api" />
+            <option value="$PROJECT_DIR$/translator-bing" />
             <option value="$PROJECT_DIR$/translator-fanjian" />
             <option value="$PROJECT_DIR$/translator-google" />
             <option value="$PROJECT_DIR$/translator-yandex" />
