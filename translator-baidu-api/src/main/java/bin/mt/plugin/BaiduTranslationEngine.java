@@ -12,7 +12,9 @@ import java.net.URLEncoder;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
 import bin.mt.plugin.api.LocalString;
@@ -89,6 +91,22 @@ public class BaiduTranslationEngine extends BaseTranslationEngine {
     @Override
     public List<String> loadTargetLanguages(String s) {
         return targetLanguages;
+    }
+
+    private Map<String, String> baidu2ios_639_1;
+
+    @NonNull
+    @Override
+    public String getLanguageDisplayName(String language) {
+        // 这边将百度翻译语言代码转化为谷歌翻译语言代码即可
+        if (baidu2ios_639_1 == null) {
+            baidu2ios_639_1 = new HashMap<>();
+            for (int i = 0; i < sourceLanguages.size(); i++) {
+                baidu2ios_639_1.put(sourceLanguages.get(i), ios_639_1_LanguageCodes.get(i));
+            }
+        }
+        String code = baidu2ios_639_1.get(language);
+        return super.getLanguageDisplayName(code);
     }
 
     private String appid;
