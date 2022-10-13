@@ -7,3 +7,6 @@ reg_url_summary: The built-in APP ID and Key may exceed the free quota. It is re
 bt_appid_summary: Baidu translation open platform APP ID
 bt_key_summary: Baidu translation open platform SecurityKey
 bt_please_recharge: The translation quota has been used up, please change the APP ID and SecurityKey of Baidu Translation Open Platform in the plugin settings!
+
+bt_qps: Request frequency limit per second
+bt_qps_summary: Fill in 1 for the standard version, 10 for the advanced version, and 100 for the exclusive version

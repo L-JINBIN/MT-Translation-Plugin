@@ -1,6 +1,7 @@
 package bin.mt.plugin;
 
 public interface BaiduConstant {
+    String BAIDU_TRANSLATION_QPS = "BAIDU_QUS";
     String BAIDU_APPID_PREFERENCE_KEY = "BAIDU_APPID";
     String BAIDU_KEY_PREFERENCE_KEY = "BAIDU_KEY";
 

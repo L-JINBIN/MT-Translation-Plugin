@@ -7,3 +7,6 @@ reg_url_summary: 内置的 APP ID 和 Key 可能会超出免费额度，建议�
 bt_appid_summary: 百度翻译开放平台的 APP ID
 bt_key_summary: 百度翻译开放平台的密钥
 bt_please_recharge: 翻译额度已用完，请在插件设置中更换百度翻译开放平台的 APP ID 和密钥！
+
+bt_qps: 每秒请求频率限制
+bt_qps_summary: 标准版填 1，高级版填 10，尊享版填 100

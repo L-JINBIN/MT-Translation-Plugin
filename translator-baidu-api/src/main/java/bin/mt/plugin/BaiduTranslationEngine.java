@@ -122,6 +122,7 @@ public class BaiduTranslationEngine extends BaseTranslationEngine {
         key = preferences.getString(BaiduConstant.BAIDU_KEY_PREFERENCE_KEY, BaiduConstant.BAIDU_KEY_DEFAULT);
         if (key.isEmpty())
             key = BaiduConstant.BAIDU_KEY_DEFAULT;
+        QPSHelper.setQPS(preferences.getInt(BaiduConstant.BAIDU_TRANSLATION_QPS, 1));
     }
 
     @NonNull
@@ -137,11 +138,13 @@ public class BaiduTranslationEngine extends BaseTranslationEngine {
                 + "&appid=" + appid
                 + "&salt=" + salt
                 + "&sign=" + sign;
+        QPSHelper.waitIfNecessary();
         return getResult(HttpUtils.get(url).executeToJson());
     }
 
     private String getResult(JSONObject json) throws JSONException, IOException {
         if (json.has("error_code")) {
+            QPSHelper.onFail();
             if (json.getString("error_code").equals("54004")) {
                 throw new IOException(this.string.get("bt_please_recharge"));
             }
