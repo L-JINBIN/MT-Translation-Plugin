@@ -72,7 +72,7 @@ public class BaiduTranslationEngine extends BaseTranslationEngine {
 
     private int minTranslationTime;
 
-    private long lastTranslationTime;
+    private static long lastTranslationTime;
 
     @Override
     protected void init() {
