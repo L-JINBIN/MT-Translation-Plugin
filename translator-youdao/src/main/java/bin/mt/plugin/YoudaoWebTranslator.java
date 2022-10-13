@@ -21,6 +21,7 @@ public class YoudaoWebTranslator {
         System.out.println(translate("apple", "en", "zh")); // 苹果
         System.out.println(translate("apple", "zh", "en")); // apple
         System.out.println(translate("苹果", "zh", "en")); // apple
+        System.out.println(translate("测试测试。测试测试。", "auto", "en"));
     }
 
     public static String translate(String query, String from, String to) throws IOException {

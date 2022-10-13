@@ -28,6 +28,7 @@ public class BingWebTranslator {
 
     public static void main(String[] args) throws IOException {
         System.out.println(translate("apple", "en", "zh-Hans"));
+        System.out.println(translate("测试测试。测试测试。", "auto", "en"));
     }
 
     public static String translate(String query, String from, String to) throws IOException {
@@ -65,7 +66,11 @@ public class BingWebTranslator {
         StringBuilder sb = new StringBuilder();
         JSONArray array = new JSONArray(result);
         for (int i = 0; i < array.length(); i++) {
-            JSONArray translations = array.getJSONObject(i).getJSONArray("translations");
+            JSONObject json = array.getJSONObject(i);
+            if (!json.has("translations")) {
+                continue;
+            }
+            JSONArray translations = json.getJSONArray("translations");
             for (int j = 0; j < translations.length(); j++) {
                 sb.append(translations.getJSONObject(j).getString("text"));
             }

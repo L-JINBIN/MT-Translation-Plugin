@@ -47,7 +47,8 @@ public class QPSHelper {
         }
         if (count >= qps) {
             try {
-                Thread.sleep(lastTime + 1000 - currentTime);
+//                Thread.sleep(lastTime + 1000 - currentTime);  这么写还是会触发频率限制
+                Thread.sleep(1000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }

@@ -10,6 +10,7 @@ public class YandexWebTranslator {
 
     public static void main(String[] args) throws IOException {
         System.out.println(translate("apple", "en", "zh"));
+        System.out.println(translate("测试测试。测试测试。", "auto", "en"));
     }
 
     public static String translate(String query, String from, String to) throws IOException {
