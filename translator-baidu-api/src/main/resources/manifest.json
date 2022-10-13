@@ -7,7 +7,7 @@
   // 只能由字母、数字、下划线和点组成
   pluginID: "bin.plugin.translator.baiduapi",
   // 插件版本号，低版本插件无法覆盖安装高版本插件
-  versionCode: 4,
+  versionCode: 5,
   // 插件版本名称
   versionName: "v1.2",
   // 插件名称

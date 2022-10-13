@@ -70,6 +70,10 @@ public class BaiduTranslationEngine extends BaseTranslationEngine {
 
     private LocalString string;
 
+    private int minTranslationTime;
+
+    private long lastTranslationTime;
+
     @Override
     protected void init() {
         string = getContext().getAssetLocalString("String");
@@ -122,7 +126,16 @@ public class BaiduTranslationEngine extends BaseTranslationEngine {
         key = preferences.getString(BaiduConstant.BAIDU_KEY_PREFERENCE_KEY, BaiduConstant.BAIDU_KEY_DEFAULT);
         if (key.isEmpty())
             key = BaiduConstant.BAIDU_KEY_DEFAULT;
-        QPSHelper.setQPS(preferences.getInt(BaiduConstant.BAIDU_TRANSLATION_QPS, 1));
+        int qps;
+        try {
+            qps = Integer.parseInt(preferences.getString(BaiduConstant.BAIDU_TRANSLATION_QPS, "1"));
+            if (qps <= 0) {
+                qps = 1;
+            }
+        } catch (Exception e) {
+            qps = 1;
+        }
+        minTranslationTime = (int) Math.ceil(1000f / qps);
     }
 
     @NonNull
@@ -138,13 +151,22 @@ public class BaiduTranslationEngine extends BaseTranslationEngine {
                 + "&appid=" + appid
                 + "&salt=" + salt
                 + "&sign=" + sign;
-        QPSHelper.waitIfNecessary();
-        return getResult(HttpUtils.get(url).executeToJson());
+        // 跟上次翻译时间间隔至少minTranslationTime
+        long diff = lastTranslationTime + minTranslationTime - System.currentTimeMillis();
+        if (diff > 0) {
+            try {
+                Thread.sleep(diff);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+        String result = getResult(HttpUtils.get(url).executeToJson());
+        lastTranslationTime = System.currentTimeMillis(); // 如果异常则不更新时间
+        return result;
     }
 
     private String getResult(JSONObject json) throws JSONException, IOException {
         if (json.has("error_code")) {
-            QPSHelper.onFail();
             if (json.getString("error_code").equals("54004")) {
                 throw new IOException(this.string.get("bt_please_recharge"));
             }
