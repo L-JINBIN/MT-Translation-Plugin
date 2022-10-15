@@ -12,6 +12,7 @@ import java.util.Map;
  */
 public class BingWebTranslator {
     private static final Map<String, String> LANG_MAP = new HashMap<>();
+    private static String domain = "cn.bing.com";
     private static String ig;
     private static String iid;
     private static String token;
@@ -29,6 +30,10 @@ public class BingWebTranslator {
     public static void main(String[] args) throws IOException {
         System.out.println(translate("apple", "en", "zh-Hans"));
         System.out.println(translate("测试测试。测试测试。", "auto", "en"));
+    }
+
+    public static void setDomain(String domain) {
+        BingWebTranslator.domain = domain;
     }
 
     public static String translate(String query, String from, String to) throws IOException {
@@ -53,7 +58,7 @@ public class BingWebTranslator {
     }
 
     private static String translateImpl(String query, String from, String to) throws IOException {
-        return HttpUtils.post("https://cn.bing.com/ttranslatev3?IG=" + ig + "&IID=" + iid + ".1")
+        return HttpUtils.post("https://" + domain + "/ttranslatev3?IG=" + ig + "&IID=" + iid + ".1")
                 .formData("fromLang", from)
                 .formData("text", query)
                 .formData("to", to)
@@ -89,7 +94,7 @@ public class BingWebTranslator {
     }
 
     private static void init() throws IOException {
-        String src = HttpUtils.get("https://cn.bing.com/translator").execute();
+        String src = HttpUtils.get("https://" + domain + "/translator").execute();
         ig = getMiddleText(src, "IG:\"", "\"");
         iid = getMiddleText(src, "<div id=\"rich_tta\" data-iid=\"", "\"");
         String richTranslateHelper = getMiddleText(src, "params_RichTranslateHelper = ", ";");

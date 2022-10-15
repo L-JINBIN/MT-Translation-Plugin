@@ -30,6 +30,7 @@ public class BingWebTranslationEngine extends BaseTranslationEngine {
     @Override
     protected void init() {
         string = getContext().getAssetLocalString("String");
+        BingWebTranslator.setDomain(string.get("domain"));
     }
 
     @NonNull
