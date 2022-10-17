@@ -5,11 +5,11 @@
   pluginSdkVersion: 2,
   // 插件ID，插件的唯一标识，类似于packageName
   // 只能由字母、数字、下划线和点组成
-  pluginID: "bin.plugin.translator.google",
+  pluginID: "bin.plugin.translator.google_cn",
   // 插件版本号，低版本插件无法覆盖安装高版本插件
-  versionCode: 2,
+  versionCode: 1,
   // 插件版本名称
-  versionName: "v1.1",
+  versionName: "v1.0",
   // 插件名称
   name: "{plugin_name}",
   // 插件描述
@@ -17,6 +17,6 @@
   // 对外接口，接口类型会自动判断
   // 目前仅有翻译接口
   interfaces: [
-    "bin.mt.plugin.GoogleWebTranslationEngine"
+    "bin.mt.plugin.GoogleCNTranslationEngine"
   ]
 }

@@ -14,7 +14,7 @@ import bin.mt.plugin.api.translation.BaseTranslationEngine;
  *
  * @author Bin
  */
-public class GoogleWebTranslationEngine extends BaseTranslationEngine {
+public class GoogleCNTranslationEngine extends BaseTranslationEngine {
     private final List<String> sourceLanguages = Arrays.asList("auto",
             "zh", "zh-TW", "en", "af", "am", "ar", "az", "be", "bg", "bn", "bs", "ca",
             "ceb", "co", "cs", "cy", "da", "de", "el", "eo", "es", "et", "eu", "fa",
@@ -65,7 +65,7 @@ public class GoogleWebTranslationEngine extends BaseTranslationEngine {
     @NonNull
     @Override
     public String translate(String text, String sourceLanguage, String targetLanguage) throws IOException {
-        return GoogleWebTranslator.translate(text, sourceLanguage, targetLanguage);
+        return GoogleCNTranslator.translate(text, sourceLanguage, targetLanguage);
     }
 
     @Override

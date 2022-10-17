@@ -19,6 +19,7 @@
             <option value="$PROJECT_DIR$/translator-bing" />
             <option value="$PROJECT_DIR$/translator-fanjian" />
             <option value="$PROJECT_DIR$/translator-google" />
+            <option value="$PROJECT_DIR$/translator-google-cn" />
             <option value="$PROJECT_DIR$/translator-yandex" />
             <option value="$PROJECT_DIR$/translator-youdao" />
           </set>
