@@ -14,24 +14,22 @@ import okhttp3.Response;
  * @author Bin
  */
 public class GoogleCNTranslator {
-    /**
-     * IP 可通过访问 https://ping.chinaz.com/translate.google.cn 获取
-     */
-    private static final String IP = "203.208.40.34";
+    private static final String IP = "142.250.4.90";
     private static final OkHttpClient HTTP_CLIENT = new OkHttpClient.Builder()
             .callTimeout(10, TimeUnit.SECONDS)
-            .sslSocketFactory(TrustAll.SSL_SOCKET_FACTORY, TrustAll.TRUST_ALL_MANAGER)
-            .hostnameVerifier(TrustAll.TRUST_ALL_HOSTNAME_VERIFIER)
             .build();
 
     public static void main(String[] args) throws IOException {
-        System.out.println(translate("apple", "en", "zh"));
-        System.out.println(translate("测试测试。测试测试。", "auto", "en"));
-        HTTP_CLIENT.connectionPool().evictAll(); // exit
+        try {
+            System.out.println(translate("apple", "en", "zh"));
+            System.out.println(translate("测试测试。测试测试。", "auto", "en"));
+        } finally {
+            HTTP_CLIENT.connectionPool().evictAll(); // exit
+        }
     }
 
     public static String translate(String query, String from, String to) throws IOException {
-        String url = "https://" + IP + "/translate_a/single?client=gtx&dt=t" +
+        String url = "http://" + IP + "/translate_a/single?client=gtx&dt=t" +
                 "&sl=" + from +
                 "&tl=" + to +
                 "&q=" + URLEncoder.encode(query, "UTF-8");
