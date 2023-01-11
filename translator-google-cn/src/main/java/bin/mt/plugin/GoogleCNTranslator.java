@@ -14,7 +14,7 @@ import okhttp3.Response;
  * @author Bin
  */
 public class GoogleCNTranslator {
-    private static final String IP = "142.250.4.90";
+    private static final String IP = "172.217.194.90";
     private static final OkHttpClient HTTP_CLIENT = new OkHttpClient.Builder()
             .callTimeout(10, TimeUnit.SECONDS)
             .build();
