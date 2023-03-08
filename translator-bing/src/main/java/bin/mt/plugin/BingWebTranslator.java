@@ -97,7 +97,7 @@ public class BingWebTranslator {
         String src = HttpUtils.get("https://" + domain + "/translator").execute();
         ig = getMiddleText(src, "IG:\"", "\"");
         iid = getMiddleText(src, "<div id=\"rich_tta\" data-iid=\"", "\"");
-        String richTranslateHelper = getMiddleText(src, "params_RichTranslateHelper = ", ";");
+        String richTranslateHelper = getMiddleText(src, "params_AbusePreventionHelper = ", ";");
         if (ig == null) {
             throw new IOException("Can not parse parameter: ig");
         }
