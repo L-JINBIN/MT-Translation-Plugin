@@ -129,7 +129,12 @@ public class GoogleCNTranslator {
         if (!string.startsWith("[[[")) {
             throw new IOException("Parse result failed: " + string);
         }
-        return new JSONArray(string).getJSONArray(0).getJSONArray(0).getString(0);
+        JSONArray array = new JSONArray(string).getJSONArray(0);
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < array.length(); i++) {
+            sb.append(array.getJSONArray(i).getString(0));
+        }
+        return sb.toString();
     }
 
 }
