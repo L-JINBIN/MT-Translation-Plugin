@@ -1,3 +1,24 @@
+pluginManagement {
+    repositories {
+        gradlePluginPortal()
+        google()
+        mavenCentral()
+    }
+}
+dependencyResolutionManagement {
+    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    repositories {
+        google()
+        mavenCentral()
+        maven {
+            name "repo.jenkins-ci.org"
+            url "https://repo.jenkins-ci.org/public"
+        }
+    }
+}
+
+rootProject.name = "MT-Translation-Plugin"
+
 include ':packer'
 include ':common'
 include ':translator-baidu'

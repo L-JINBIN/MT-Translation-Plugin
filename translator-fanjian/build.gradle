@@ -1,6 +1,9 @@
-apply plugin: 'com.android.library'
+plugins {
+    id 'com.android.library'
+}
 
 android {
+    namespace 'bin.mt.plugin'
     compileSdkVersion 14
     defaultConfig { minSdkVersion 14 }
     compileOptions {
