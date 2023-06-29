@@ -17,22 +17,18 @@ import okhttp3.Response;
  */
 public class GoogleCNTranslator {
     private static final String[] IPS = {
-            "108.177.111.90",
-            "108.177.126.90",
-            "108.177.127.90",
+            "64.233.189.191",
+            "216.239.32.40",
             "108.177.97.100",
-            "142.250.1.90",
-            "142.250.112.90",
-            "142.250.13.90",
-            "142.250.145.90",
-            "142.250.148.90",
-            "142.250.149.90",
-            "142.250.152.90",
-            "142.250.153.90",
-            "142.250.158.90",
-            "142.250.27.90",
-            "172.217.192.90",
-            "172.217.212.90"
+            "142.251.175.90",
+            "142.251.171.90",
+            "142.251.174.90",
+            "74.125.196.113",
+            "142.251.176.90",
+            "108.177.126.90",
+            "172.217.218.90",
+            "142.250.204.6",
+            "142.250.194.89",
     };
     private static String okIP;
     private static final OkHttpClient HTTP_CLIENT = new OkHttpClient.Builder()
@@ -72,7 +68,7 @@ public class GoogleCNTranslator {
                             newIP.compareAndSet(null, s);
                         }
                     } catch (Exception e) {
-                        e.printStackTrace();
+                        new Exception(s, e).printStackTrace();
                     } finally {
                         countDownLatch.countDown();
                     }
