@@ -20,6 +20,9 @@ public class GoogleCNTranslator {
             "74.125.196.113",
             "108.177.97.100",
             "64.233.189.191",
+            "142.250.105.103",
+            "216.239.32.40",
+            "142.250.149.120"
     };
     private static String okIP;
     private static final OkHttpClient HTTP_CLIENT = new OkHttpClient.Builder()
@@ -56,11 +59,13 @@ public class GoogleCNTranslator {
                                 .build();
                         Response response = HTTP_CLIENT.newCall(request).execute();
                         if (response.isSuccessful()) {
-                            System.out.println("OKIP " + s);
+                            System.out.println("Success " + s);
                             newIP.compareAndSet(null, s);
+                        } else {
+                            System.out.println("Fail " + s);
                         }
                     } catch (Exception e) {
-                        new Exception(s, e).printStackTrace();
+                        System.out.println("Error " + s);
                     } finally {
                         countDownLatch.countDown();
                     }

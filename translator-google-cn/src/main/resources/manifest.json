@@ -7,9 +7,9 @@
   // 只能由字母、数字、下划线和点组成
   pluginID: "bin.plugin.translator.google_cn",
   // 插件版本号，低版本插件无法覆盖安装高版本插件
-  versionCode: 9,
+  versionCode: 10,
   // 插件版本名称
-  versionName: "v2.4",
+  versionName: "v2.5",
   // 插件名称
   name: "{plugin_name}",
   // 插件描述
