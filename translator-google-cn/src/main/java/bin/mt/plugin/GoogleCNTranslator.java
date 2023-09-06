@@ -17,18 +17,9 @@ import okhttp3.Response;
  */
 public class GoogleCNTranslator {
     private static final String[] IPS = {
-            "64.233.189.191",
-            "216.239.32.40",
-            "108.177.97.100",
-            "142.251.175.90",
-            "142.251.171.90",
-            "142.251.174.90",
             "74.125.196.113",
-            "142.251.176.90",
-            "108.177.126.90",
-            "172.217.218.90",
-            "142.250.204.6",
-            "142.250.194.89",
+            "108.177.97.100",
+            "64.233.189.191",
     };
     private static String okIP;
     private static final OkHttpClient HTTP_CLIENT = new OkHttpClient.Builder()
@@ -65,6 +56,7 @@ public class GoogleCNTranslator {
                                 .build();
                         Response response = HTTP_CLIENT.newCall(request).execute();
                         if (response.isSuccessful()) {
+                            System.out.println("OKIP " + s);
                             newIP.compareAndSet(null, s);
                         }
                     } catch (Exception e) {
@@ -76,16 +68,20 @@ public class GoogleCNTranslator {
             }.start();
         }
         while (true) {
+            boolean finished;
             try {
-                if (countDownLatch.await(100, TimeUnit.MICROSECONDS)) {
-                    throw new RuntimeException("无可用IP");
-                }
+                finished = countDownLatch.await(100, TimeUnit.MICROSECONDS);
+            } catch (RuntimeException e) {
+                throw e;
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }
             ip = newIP.get();
             if (ip != null) {
                 return okIP = ip;
+            }
+            if (finished) {
+                throw new RuntimeException("无可用IP");
             }
         }
     }
