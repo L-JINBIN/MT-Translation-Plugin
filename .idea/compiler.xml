@@ -2,18 +2,15 @@
 <project version="4">
   <component name="CompilerConfiguration">
     <bytecodeTargetLevel target="1.8">
-      <module name="MT-Translation-Plugin.common" target="11" />
-      <module name="MT-Translation-Plugin.translator-baidu" target="11" />
-      <module name="MT-Translation-Plugin.translator-baidu-api" target="11" />
-      <module name="MT-Translation-Plugin.translator-baidu-web" target="11" />
-      <module name="MT-Translation-Plugin.translator-bing" target="11" />
-      <module name="MT-Translation-Plugin.translator-fanjian" target="11" />
-      <module name="MT-Translation-Plugin.translator-google" target="11" />
-      <module name="MT-Translation-Plugin.translator-google-china" target="11" />
-      <module name="MT-Translation-Plugin.translator-google-cn" target="11" />
-      <module name="MT-Translation-Plugin.translator-google-web" target="11" />
-      <module name="MT-Translation-Plugin.translator-yandex" target="11" />
-      <module name="MT-Translation-Plugin.translator-youdao" target="11" />
+      <module name="MT-Translation-Plugin.common" target="17" />
+      <module name="MT-Translation-Plugin.translator-baidu" target="17" />
+      <module name="MT-Translation-Plugin.translator-baidu-api" target="17" />
+      <module name="MT-Translation-Plugin.translator-bing" target="17" />
+      <module name="MT-Translation-Plugin.translator-fanjian" target="17" />
+      <module name="MT-Translation-Plugin.translator-google" target="17" />
+      <module name="MT-Translation-Plugin.translator-google-cn" target="17" />
+      <module name="MT-Translation-Plugin.translator-yandex" target="17" />
+      <module name="MT-Translation-Plugin.translator-youdao" target="17" />
     </bytecodeTargetLevel>
   </component>
 </project>
