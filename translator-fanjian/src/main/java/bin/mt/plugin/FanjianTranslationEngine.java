@@ -10,7 +10,7 @@ import bin.mt.plugin.api.LocalString;
 import bin.mt.plugin.api.translation.BaseTranslationEngine;
 
 /**
- * 繁简互转
+ * 繁简互换
  *
  * @author Bin
  */
